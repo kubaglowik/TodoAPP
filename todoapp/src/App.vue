@@ -1,13 +1,14 @@
 <template>
 <div class="all">
   <div class="item">
+    <!-- <p>{{showData}}</p> -->
     <atom-input type="text" placeholder="add task" v-model="newitem"></atom-input>
     <atom-button :text="'ADD'" class="additem" @click="addItem"></atom-button>
     <atom-select name="sort" id="sort" @change="sortList">
-      <option value="az">a-z</option>
-      <option value="za">z-a</option>
-      <option value="stn">old to new</option>
-      <option value="nts">new to old</option>
+      <atom-option :text="'a-z'" value="az"/>
+      <atom-option :text="'z-a'" value="za"/>
+      <atom-option :text="'old to new'" value="stn"/>
+      <atom-option :text="'new to old'" value="nts"/>
     </atom-select>
   </div>
   <div class="item" v-bind:class="{ status: item.status }" v-for="item in items" v-bind:key="item.id">
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import AtomOption from './components/AtomOption.vue';
 import AtomButton from './components/Atoms/AtomButton.vue';
 import AtomHeader from './components/Atoms/AtomHeader.vue';
 import AtomInput from "./components/Atoms/AtomInput.vue";
@@ -27,7 +29,7 @@ import AtomSelect from './components/Atoms/AtomSelect.vue';
 
 export default {
   components: {
-    AtomInput, AtomButton,AtomHeader,AtomSelect
+    AtomInput, AtomButton,AtomHeader,AtomSelect,AtomOption
   },
 
   data() {
@@ -57,7 +59,6 @@ export default {
           const msec = Date.parse(new Date);
       console.log(msec)
       const selectValue = event.target.value;
-      // alert(selectValue)
       if(selectValue === 'za'){
         this.items = this.items.sort((item1, item2) => {
           if(item1.title > item2.title) {
@@ -95,6 +96,14 @@ export default {
         })
       }
     },
+
+    // showData() {
+    //   const msec = Date.parse(new Date);
+    //   console.log(msec)
+    //   const itemdata = (new Date)
+    //   console.log(itemdata);
+    // },
+
   },
   mounted() {
     const storedItems = localStorage.getItem('items');
