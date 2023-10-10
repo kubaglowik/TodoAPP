@@ -3,7 +3,7 @@
   <div class="item">
     <atom-input type="text" placeholder="add task" v-model="newitem"></atom-input>
     <atom-button :text="'ADD'" class="additem" @click="addItem"></atom-button>
-    <select name="sort" id="sort" @change="change">
+    <select name="sort" id="sort" @change="sortList">
       <option value="az">a-z</option>
       <option value="za">z-a</option>
       <option value="stn">old to new</option>
@@ -51,25 +51,47 @@ export default {
       this.items.splice(index, 1).avilable = 1;
       localStorage.setItem('items', JSON.stringify(this.items));
     },
-    // czas milisekundy
-          // const msec = Date.parse(new Date);
-      // console.log(msec)
+    sortList(event){
+          const msec = Date.parse(new Date);
+      console.log(msec)
+      const selectValue = event.target.value;
+      if(selectValue === 'za'){
+        this.items = this.items.sort((item1, item2) => {
+          if(item1.data > item2.data) {
+            return -1;
+          }
 
+          return 1;
+        })
+      }
+      if(selectValue === 'az'){
+        this.items = this.items.sort((item1, item2) => {
+          if(item1.data < item2.data) {
+            return -1;
+          }
 
-    // change(){
-    //   if(){
-        
-    //   }
-    //   if(){
-        
-    //   }
-    //   if(){
-        
-    //   }
-    //   if(){
-        
-    //   }
-    // },
+          return 1;
+        })
+      }
+      if(selectValue === 'stn'){
+        this.items = this.items.sort((item1, item2) => {
+          if(item1.data < item2.data) {
+            return -1;
+          }
+
+          return 1;
+        })
+      }
+      if(selectValue === 'nts'){
+        this.items = this.items.sort((item1, item2) => {
+          if(item1.data > item2.data) {
+            return -1;
+          }
+
+          return 1;
+        })
+      }
+    },
   },
   mounted() {
     const storedItems = localStorage.getItem('items');
