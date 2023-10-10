@@ -1,7 +1,8 @@
 <template>
+<div class="all">
   <div class="item">
     <atom-input type="text" placeholder="add task" v-model="newitem"></atom-input>
-    <atom-button v-text="'ADD'" class="additem" @click="addItem"></atom-button>
+    <atom-button :text="'ADD'" class="additem" @click="addItem"></atom-button>
     <select name="sort" id="sort" @change="change">
       <option value="az">a-z</option>
       <option value="za">z-a</option>
@@ -9,14 +10,11 @@
       <option value="nts">new to old</option>
     </select>
   </div>
-  <div
-    class="item"
-    v-bind:class="{ status: item.status }"
-    v-for="item in items"
-    v-bind:key="item.id">
+  <div class="item" v-bind:class="{ status: item.status }" v-for="item in items" v-bind:key="item.id">
     <h2>{{ item.title }}</h2>
     <atom-button :text="'Ready'" class="additem" v-if="!item.status" @click="removeitem(item.id)"></atom-button>
-    <atom-button :text="'Delete'" class="delete" v-if="item.avilable == 0" @click="deleteeitem(item.id)"></atom-button>
+    <atom-button :text="'Delete'" class="delete" v-if="item.avilable === 0" @click="deleteeitem(item.id)"></atom-button>
+  </div>
   </div>
 </template>
 
@@ -39,7 +37,7 @@ export default {
   methods: {
     
     addItem() {
-      this.items.push({ title: this.newitem, status: false, id: Math.random(), avilable: 0, data: new Date(),
+      this.items.push({ title: this.newitem, status: false, id: Math.random(), avilable: 0, data: new Date,
       });
        localStorage.setItem('items', JSON.stringify(this.items));
     },
@@ -47,16 +45,30 @@ export default {
       const index = this.items.findIndex((el) => el.id === id);
       this.items[index].status = true;
       localStorage.setItem('items', JSON.stringify(this.items));
-      const msec = Date.parse(this.items.data);
-      console.log(msec);
     },
     deleteeitem(id) {
       const index = this.items.findIndex((el) => el.id === id);
       this.items.splice(index, 1).avilable = 1;
       localStorage.setItem('items', JSON.stringify(this.items));
     },
+    // czas milisekundy
+          // const msec = Date.parse(new Date);
+      // console.log(msec)
+
+
     // change(){
-    //   if()
+    //   if(){
+        
+    //   }
+    //   if(){
+        
+    //   }
+    //   if(){
+        
+    //   }
+    //   if(){
+        
+    //   }
     // },
   },
   mounted() {
