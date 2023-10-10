@@ -11,7 +11,7 @@
     </select>
   </div>
   <div class="item" v-bind:class="{ status: item.status }" v-for="item in items" v-bind:key="item.id">
-    <h2>{{ item.title }}</h2>
+    <atom-header :text="item.title">{{ text }}</atom-header>
     <atom-button :text="'Ready'" class="additem" v-if="!item.status" @click="removeitem(item.id)"></atom-button>
     <atom-button :text="'Delete'" class="delete" v-if="item.avilable === 0" @click="deleteeitem(item.id)"></atom-button>
   </div>
@@ -20,12 +20,13 @@
 
 <script>
 import AtomButton from './components/Atoms/AtomButton.vue';
+import AtomHeader from './components/Atoms/AtomHeader.vue';
 import AtomInput from "./components/Atoms/AtomInput.vue";
 
 
 export default {
   components: {
-    AtomInput, AtomButton
+    AtomInput, AtomButton,AtomHeader
   },
 
   data() {
