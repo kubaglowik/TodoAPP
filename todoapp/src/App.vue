@@ -2,7 +2,7 @@
 <div class="all">
   <div class="item">
     <!-- <p>{{showData}}</p> -->
-    <atom-input type="text" placeholder="add task" v-model="newitem"></atom-input>
+    <atom-input type="text" placeholder="add task" v-model="newitem" @keyup.enter="addItem"></atom-input>
     <atom-button :text="'ADD'" class="additem" @click="addItem"></atom-button>
     <atom-select name="sort" id="sort" @change="sortList">
       <atom-option :text="'a-z'" value="az"/>
@@ -44,6 +44,7 @@ export default {
       this.items.push({ title: this.newitem, status: false, id: Math.random(), avilable: 0, data: new Date,
       });
        localStorage.setItem('items', JSON.stringify(this.items));
+        this.newitem = ""; 
     },
     removeitem(id) {
       const index = this.items.findIndex((el) => el.id === id);
