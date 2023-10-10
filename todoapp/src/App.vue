@@ -1,7 +1,7 @@
 <template>
   <div class="item">
     <atom-input type="text" placeholder="add task" v-model="newitem"></atom-input>
-    <button class="additem" @click="addItem">add</button>
+    <atom-button v-text="'ADD'" class="additem" @click="addItem"></atom-button>
     <select name="sort" id="sort" @change="change">
       <option value="az">a-z</option>
       <option value="za">z-a</option>
@@ -15,8 +15,8 @@
     v-for="item in items"
     v-bind:key="item.id">
     <h2>{{ item.title }}</h2>
-    <atom-button v-text="'Ready'" class="additem" v-if="!item.status" @click="removeitem(item.id)"></atom-button>
-    <atom-button v-text="'Delete'" class="delete" v-if="item.avilable == 0" @click="deleteeitem(item.id)"></atom-button>
+    <atom-button :text="'Ready'" class="additem" v-if="!item.status" @click="removeitem(item.id)"></atom-button>
+    <atom-button :text="'Delete'" class="delete" v-if="item.avilable == 0" @click="deleteeitem(item.id)"></atom-button>
   </div>
 </template>
 
@@ -37,12 +37,9 @@ export default {
     };
   },
   methods: {
+    
     addItem() {
-      this.items.push({
-        title: this.newitem,
-        status: false,
-        id: Math.random(),
-        avilable: 0,
+      this.items.push({ title: this.newitem, status: false, id: Math.random(), avilable: 0, data: new Date(),
       });
        localStorage.setItem('items', JSON.stringify(this.items));
     },
@@ -50,6 +47,8 @@ export default {
       const index = this.items.findIndex((el) => el.id === id);
       this.items[index].status = true;
       localStorage.setItem('items', JSON.stringify(this.items));
+      const msec = Date.parse(this.items.data);
+      console.log(msec);
     },
     deleteeitem(id) {
       const index = this.items.findIndex((el) => el.id === id);
@@ -61,7 +60,6 @@ export default {
     // },
   },
   mounted() {
-    // Odczytaj listę zadań z localStorage po załadowaniu komponentu
     const storedItems = localStorage.getItem('items');
     if (storedItems) {
       this.items = JSON.parse(storedItems);
