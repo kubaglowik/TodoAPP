@@ -1,13 +1,15 @@
 <template>
-<button @input="$emit('@click')">{{text}}</button>
+<button @button="$emit('@click')">{{text}}</button>
 </template>
 <script>
 export default {
    name: 'AtomButton',
-   text:{
-    type:String,
-    default: " "
-   }
+  props: {
+    text: {
+      type: String,
+      default: ''
+    },
+  },
 
 }
 </script>
