@@ -44,18 +44,28 @@ export default {
         id: Math.random(),
         avilable: 0,
       });
+       localStorage.setItem('items', JSON.stringify(this.items));
     },
     removeitem(id) {
       const index = this.items.findIndex((el) => el.id === id);
       this.items[index].status = true;
+      localStorage.setItem('items', JSON.stringify(this.items));
     },
     deleteeitem(id) {
       const index = this.items.findIndex((el) => el.id === id);
       this.items.splice(index, 1).avilable = 1;
+      localStorage.setItem('items', JSON.stringify(this.items));
     },
     // change(){
-    //   if(items==0)
+    //   if()
     // },
+  },
+  mounted() {
+    // Odczytaj listę zadań z localStorage po załadowaniu komponentu
+    const storedItems = localStorage.getItem('items');
+    if (storedItems) {
+      this.items = JSON.parse(storedItems);
+    }
   },
 };
 </script>
