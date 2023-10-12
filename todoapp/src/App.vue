@@ -2,7 +2,7 @@
 <div class="all">
   <div class="item">
     <!-- <p>{{showData}}</p> -->
-    <atom-input type="text" placeholder="add task" v-model="newitem" @keyup.enter="addItem"></atom-input>
+    <atom-input type="text" class="text" placeholder="add task" v-model="newitem" @keyup.enter="addItem"></atom-input>
     <atom-button :text="'ADD'" class="additem" @click="addItem"></atom-button>
     <atom-select name="sort" id="sort" @change="sortList">
       <atom-option :text="'a-z'" value="az"/>
@@ -11,7 +11,7 @@
       <atom-option :text="'new to old'" value="nts"/>
     </atom-select>
   </div>
-  <div class="item" v-bind:class="{ status: item.status }" v-for="item in items" v-bind:key="item.id">
+  <div class="item2" v-bind:class="{ status: item.status }" v-for="item in items" v-bind:key="item.id">
     <atom-header :text="item.title"/>
     <atom-button :text="'Ready'" class="additem" v-if="!item.status" @click="removeitem(item.id)"></atom-button>
     <atom-button :text="'Delete'" class="delete" v-if="item.avilable === 0" @click="deleteeitem(item.id)"></atom-button>
@@ -112,48 +112,153 @@ export default {
       this.items = JSON.parse(storedItems);
     }
   },
-};
+};  
 </script>
 <style>
-template {
+.all {
+  min-height: 100vh;
+  min-width: 100%;
+  background-size: cover;
+  background-attachment: fixed;
   display: flex;
-  justify-content: center;
-}
-
-.main {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: 500;
+  background-color: red;
+  background: rgb(0, 213, 255);
+  background: linear-gradient(176deg, rgba(0, 213, 255, 1) 0%, rgba(0, 127, 255, 1) 100%);
 }
-
 .item {
-  border: 1px solid #333;
-  margin-top: 5px;
+  
+  margin-top: 5%;
   padding: 10px;
-  width: 500px;
+  width: 80%;
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
+  background-color:rgb(255, 255, 255);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
 }
-
+.item2 {
+margin: 10px;
+  padding: 10px;
+  min-width: 500px;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-family: "Montserrat",sans-serif !important;
+  font-weight: 1000;
+  background-color:rgb(255, 255, 255);
+  border-radius: 15px;
+}
+.text{
+  width: 50%;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+}
+#sort{
+  width: 20%;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 10px;
+  background-color: #f1f1f1;
+}
+.additem{
+  width: 10%;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+}
 .status {
-  opacity: 50%;
+  opacity: 70%;
 }
-
 .status h2 {
   text-decoration: line-through;
-  color: rgb(0, 140, 255);
+  color: rgb(255, 0, 0);
 }
-
 .additem {
   margin: 10px;
 }
 .delete {
   color: red;
+  width: 10%;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  
 }
-.avilable {
-  background-color: red;
+
+  * {
+    scrollbar-width: none;
+    scrollbar-color: #00aaff #ffffff;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #00aaff;
+    border-radius: 9px;
+    border: 0px solid #ffffff;
+  }
+  @media screen and (min-width: 425px) {
+  .item {
+    width: 80%;
+  }
+  
+  .item2 {
+    min-width: 80%;
+  }
+  .additem {
+  width: 15%;
 }
+.delete {
+  width: 15%;
+}
+}
+@media screen and (min-width: 375px) {
+  .item {
+    width: 80%;
+  }
+  
+  .item2 {
+    min-width: 80%;
+  }
+  .additem {
+  width: 15%;
+}
+.delete {
+  width: 15%;
+}
+}
+@media screen and (min-width: 320px) {
+  .item {
+    width: 80%;
+  }
+  
+  .item2 {
+    min-width: 80%;
+  }
+  .additem {
+  width: 15%;
+}
+.delete {
+  width: 15%;
+}
+}
+
 </style>
