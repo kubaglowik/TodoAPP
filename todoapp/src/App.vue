@@ -1,28 +1,28 @@
 <template>
   <div class="all">
     <div class="item">
-      <atom-input type="text" class="text" placeholder="add task" v-model="newitem" @keyup.enter="addItem"></atom-input>
-      <atom-button :text="'ADD'" class="additem" @click="showDataandadditem"></atom-button>
-      <atom-select name="sort" id="sort" @change="sortList">
-        <atom-option :text="'a-z'" value="az" />
-        <atom-option :text="'z-a'" value="za" />
-        <atom-option :text="'old to new'" value="stn" />
-        <atom-option :text="'new to old'" value="nts" />
+      <atom-input type="text" class="text" placeholder="add task" v-model="newitem" @keyup.enter="addItem"/>
+      <atom-button text="ADD" class="additem" @click="showDataandadditem"></atom-button>
+      <atom-select name="sort" class="sort" @change="sortList">
+        <atom-option text="a-z" value="az" />
+        <atom-option text="z-a" value="za" />
+        <atom-option text="old to new" value="stn" />
+        <atom-option text="new to old" value="nts" />
       </atom-select>
     </div>
-    <div class="item2" v-bind:class="{ status: item.status }" v-for="item in items" v-bind:key="item.id">
+    <div :class="{'item2': true, 'status': item.status}" v-for="item in items" :key="item.id">
       <div class="data">
       <p>{{ item.data2 }}</p>
       </div>
       <atom-header :text="item.title" />
-      <atom-button :text="'Ready'" class="additem" v-if="!item.status" @click="removeitem(item.id)"></atom-button>
-      <atom-button :text="'Delete'" class="delete" v-if="item.avilable === 0" @click="deleteeitem(item.id)"></atom-button>
+      <atom-button text="Ready" class="additem" v-if="!item.status" @click="removeitem(item.id)"></atom-button>
+      <atom-button text="Delete" class="delete" v-if="item.avilable === 0" @click="deleteeitem(item.id)"></atom-button>
     </div>
   </div>
 </template>
 
 <script>
-import AtomOption from './components/AtomOption.vue';
+import AtomOption from './components/Atoms/AtomOption.vue';
 import AtomButton from './components/Atoms/AtomButton.vue';
 import AtomHeader from './components/Atoms/AtomHeader.vue';
 import AtomInput from "./components/Atoms/AtomInput.vue";
@@ -172,7 +172,7 @@ export default {
   background-color: #f1f1f1;
 }
 
-#sort {
+.sort {
   width: 20%;
   padding: 5px 5px;
   border: none;
